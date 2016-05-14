@@ -31,6 +31,8 @@ Plugin 'easymotion/vim-easymotion'
 
 Plugin 'vim-airline/vim-airline'
 
+Plugin 'vim-airline/vim-airline-themes'
+
 Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'tmhedberg/SimpylFold'
@@ -91,6 +93,28 @@ set smarttab
 set smartindent
 " }}}
 
+autocmd BufNewFile,BufRead *.py setlocal tabstop=4  softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
+
+au BufNewFile,BufRead *.js, *.html, *.css setlocal tabstop=2 softtabstop=2 set shiftwidth=2
+
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+set encoding=utf-8
+
+"python with virtualenv support
+py << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
+let python_highlight_all=1
+syntax on
+
+autocmd BufWritePost *.py call Flake8() # noqa
 " UI config {{{
 set number
 set relativenumber
@@ -199,35 +223,4 @@ inoremap <Right> <nop>
 
 " vim:foldmethod=marker:foldlevel=0
 
-au BufNewFile,BufRead *.py
-    \ set tabstop=4
-    \ set softtabstop=4
-    \ set shiftwidth=4
-    \ set textwidth=79
-    \ set expandtab
-    \ set autoindent
-    \ set fileformat=unix
 
-au BufNewFile,BufRead *.js, *.html, *.css
-    \ set tabstop=2
-    \ set softtabstop=2
-    \ set shiftwidth=2
-
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
-
-set encoding=utf-8
-
-"python with virtualenv support
-py << EOF
-import os
-import sys
-if 'VIRTUAL_ENV' in os.environ:
-  project_base_dir = os.environ['VIRTUAL_ENV']
-  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
-  execfile(activate_this, dict(__file__=activate_this))
-EOF
-
-let python_highlight_all=1
-syntax on
-
-autocmd BufWritePost *.py call Flake8() # noqa
