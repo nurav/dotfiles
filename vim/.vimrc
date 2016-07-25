@@ -44,6 +44,8 @@ Plugin 'scrooloose/syntastic'
 Plugin 'nvie/vim-flake8'
 
 Plugin 'bitc/vim-bad-whitespace'
+
+Plugin 'tomlion/vim-solidity'
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 set runtimepath^=~/.vim/bundle/ctrlp.vim
@@ -95,7 +97,7 @@ set smartindent
 
 autocmd BufNewFile,BufRead *.py setlocal tabstop=4  softtabstop=4 shiftwidth=4 textwidth=79 expandtab autoindent fileformat=unix
 
-au BufNewFile,BufRead *.js, *.html, *.css setlocal tabstop=2 softtabstop=2 set shiftwidth=2
+au BufNewFile,BufRead *.js, *.html, *.css setlocal tabstop=2 softtabstop=2 shiftwidth=2
 
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
